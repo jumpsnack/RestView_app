@@ -8,7 +8,6 @@ import android.os.Message;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
 
 /**
 Copyright 2012, Temboo Inc.
