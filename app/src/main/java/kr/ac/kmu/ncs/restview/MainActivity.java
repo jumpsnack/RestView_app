@@ -1,28 +1,97 @@
 package kr.ac.kmu.ncs.restview;
 
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.TextView;
 
-import com.temboo.Library.Xively.ReadWriteData.ReadFeed;
-import com.temboo.core.TembooSession;
+import kr.ac.kmu.ncs.restview.DetailView.DetailViewFragment;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
-public class MainActivity extends AppCompatActivity {
-
-    ReadXively readXively;
+public class MainActivity extends FragmentActivity {
 
     TextView tvHello;
+
+    private Messenger msgReceiver = new Messenger(new IncomingHandler());
+    private Messenger msgSender = null;
+    private boolean isServiceBounded = false;
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            msgSender = new Messenger(iBinder);
+
+            try {
+                // Send a message to service for registered to this activity as new client
+                Message msg = Message.obtain(null, MyConstatns.REGIST_CLIENT);
+                msg.replyTo = msgReceiver;
+                msgSender.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            isServiceBounded = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            try {
+                Message msg = Message.obtain(null, MyConstatns.UNREGIST_CLIENT);
+                msg.replyTo = msgReceiver;
+                msgSender.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            isServiceBounded = false;
+        }
+    };
+
+    class IncomingHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MyConstatns.SUCESSFUL:
+//                    String contents = (String) msg.obj;
+                    MyConstatns.contents = (String) msg.obj;
+                    tvHello.setText(MyConstatns.contents);
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+       if (isServiceBounded) {
+            try {
+                Message msg = Message.obtain(null, MyConstatns.UNREGIST_CLIENT);
+                msg.replyTo = msgReceiver;
+                msgSender.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            msgSender = null;
+            isServiceBounded = false;
+        }
+        unbindService(serviceConnection);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!isServiceBounded) {
+            isServiceBounded = true;
+            bindService(new Intent(this, ReadXivelyService.class), serviceConnection, Context.BIND_AUTO_CREATE);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,24 +100,25 @@ public class MainActivity extends AppCompatActivity {
 
         tvHello = (TextView) findViewById(R.id.text_view);
 
-        readXively = new ReadXively();
-        readXively.setDaemon(true);
-        readXively.start();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.add(new DetailViewFragment(), "DETAIL");
+        fragmentTransaction.add(new OverViewFragment(), "OVERVIEW");
+        fragmentTransaction.commit();
+
+//        readXivelyService = new ReadXivelyService();
+//        readXivelyService.setDaemon(true);
+//        readXivelyService.start();
     }
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-                    String contents = (String) msg.obj;
-                    tvHello.setText(contents);
-            }
-        }
-    };
 
-    class ReadXively extends Thread {
-        final static private String TAG = "ReadXively";
+
+
+
+
+/*
+    class ReadXivelyService extends Thread {
+        final static private String TAG = "ReadXivelyService";
 
         private String contents;
 
@@ -93,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                         contents += datastream.getJSONObject(i).get("current_value") + "\n\n";
                     }
 
-                    Thread.sleep(4000);
+                    Thread.sleep(6000);
 
 
                 } catch (Exception e) {
@@ -107,6 +177,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
+    */
 }
