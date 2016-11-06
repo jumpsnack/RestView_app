@@ -16,7 +16,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="800px"
-        android:name="kr.ac.kmu.ncs.restview.OverViewFragment"
+        android:name="kr.ac.kmu.ncs.restview.OverView.OverViewFragment"
         android:id="@+id/fragment_overview"/>
 
     <fragment

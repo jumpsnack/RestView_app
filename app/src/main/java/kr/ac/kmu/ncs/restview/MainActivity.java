@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.TextView;
 
 import kr.ac.kmu.ncs.restview.DetailView.DetailViewFragment;
+import kr.ac.kmu.ncs.restview.OverView.OverViewFragment;
 
 public class MainActivity extends FragmentActivity {
 
