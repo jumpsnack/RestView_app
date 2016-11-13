@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import kr.ac.kmu.ncs.restview.DetailView.DetailViewFragment;
+import kr.ac.kmu.ncs.restview.OverView.OverViewFragment;
 
 public class MainActivity extends FragmentActivity {
 
