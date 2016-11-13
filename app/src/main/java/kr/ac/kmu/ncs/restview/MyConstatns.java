@@ -22,4 +22,5 @@ public class MyConstatns {
     final static public byte SUCESSFUL = 1;
 
     static public int cnt = 0;
+
 }

@@ -50,7 +50,7 @@ public class DetailViewController {
         listView.setAdapter(listViewAdapter);
 
         for (int i = 0; i < 10; i++) {
-            listViewAdapter.addItem(view.getResources().getDrawable(R.drawable.img_vacant), "1", "1");
+            listViewAdapter.addItem(0, "1", "1");
         }
     }
 
@@ -59,15 +59,18 @@ public class DetailViewController {
         new Thread(new Runnable() {
             @Override
             public void run() {
+               // final JsonController jsonController = new JsonController();
                 while (true) {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-
+//                            if (MyConstatns.contents.length() > 0) {
+                               // listViewAdapter.changeItemValue(0, (int) (Math.random() * 2), "1", jsonController.getDataById("Humidity"));
+                        //    }
                         }
                     });
                     try {
-                        Thread.sleep(MyConstatns.REQUEST_TIME_INTERVAL);
+                        Thread.sleep(MyConstatns.REQUEST_TIME_INTERVAL / 2);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -75,6 +78,7 @@ public class DetailViewController {
             }
         }).start();
     }
+
 
     class ViewHolder {
         public TextView tvLabel;
@@ -85,6 +89,8 @@ public class DetailViewController {
     private class ListViewAdapter extends BaseAdapter {
         private Context ctx;
         private ArrayList<ListData> listDatas = new ArrayList<>();
+        private Drawable imgOccupoed = view.getResources().getDrawable(R.drawable.img_occupied);
+        private Drawable imgVacant = view.getResources().getDrawable(R.drawable.img_vacant);
 
         public ListViewAdapter(Context ctx) {
             this.ctx = ctx;
@@ -132,13 +138,38 @@ public class DetailViewController {
             return view;
         }
 
-        public void addItem(Drawable pirState, String pir, String ir) {
+        public void addItem(int state, String pir, String ir) {
             ListData addInfo = new ListData();
-            addInfo.mPIRState = pirState;
+
+            switch (state) {
+                case 0:
+                    addInfo.mPIRState = imgVacant;
+                    break;
+                default:
+                    addInfo.mPIRState = imgOccupoed;
+                    break;
+            }
+
             addInfo.mPIR = pir;
             addInfo.mIR = ir;
 
             listDatas.add(addInfo);
+            dataChange();
+        }
+
+        public void changeItemValue(int index, int state, String pir, String ir) {
+            ListData listData = listDatas.get(index);
+
+            switch (state) {
+                case 0:
+                    listData.mPIRState = imgVacant;
+                    break;
+                default:
+                    listData.mPIRState = imgOccupoed;
+                    break;
+            }
+            listData.mPIR = pir;
+            listData.mIR = ir;
             dataChange();
         }
 

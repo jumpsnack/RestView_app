@@ -3,65 +3,95 @@ package kr.ac.kmu.ncs.restview;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.temboo.Library.Xively.ReadWriteData.ReadFeed;
-import com.temboo.core.TembooSession;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created by Eddie Sangwon Kim on 2016-11-05.
  */
-public class HttpConnexion extends AsyncTask<Void, String, String> {
+public class HttpConnexion extends AsyncTask<String, String, String> {
     final static private String TAG = "HTTPCONNEXION";
     private String contents = "";
+    URL url;
+    HttpURLConnection conn;
+    String rcvData;
+
     @Override
-    protected String doInBackground(Void... voids) {
+    protected String doInBackground(String... strings) {
         try {
             // Instantiate the Choreo, using a previously instantiated TembooSession object, eg:
-            TembooSession session = new TembooSession("jpsn", "myFirstApp", "CNezc9O6o5FfrCZsq3FwniJ3LIdgQlTP");
+            /// TembooSession session = new TembooSession("jpsn", "myFirstApp", "CNezc9O6o5FfrCZsq3FwniJ3LIdgQlTP");
 
-            ReadFeed readFeedChoreo = new ReadFeed(session);
+            ///  ReadFeed readFeedChoreo = new ReadFeed(session);
 
             // Get an InputSet object for the choreo
-            ReadFeed.ReadFeedInputSet readFeedInputs = readFeedChoreo.newInputSet();
+            ///    ReadFeed.ReadFeedInputSet readFeedInputs = readFeedChoreo.newInputSet();
 
             // Set inputs
-            readFeedInputs.set_APIKey("pzRV0MjPrEFfOT4zHAdSEkJwWvt9xjiOJvCJZkvYSoruMvgk");
-            readFeedInputs.set_FeedID("46267484");
+            ///   readFeedInputs.set_APIKey("pzRV0MjPrEFfOT4zHAdSEkJwWvt9xjiOJvCJZkvYSoruMvgk");
+            ///  readFeedInputs.set_FeedID("46267484");
 
             // Execute Choreo
-            ReadFeed.ReadFeedResultSet readFeedResults = readFeedChoreo.execute(readFeedInputs);
-            Log.d(TAG, readFeedResults.get_Response());
+            ///   ReadFeed.ReadFeedResultSet readFeedResults = readFeedChoreo.execute(readFeedInputs);
+            ///   Log.d(TAG, readFeedResults.get_Response());
 
-            JSONObject response = new JSONObject(readFeedResults.get_Response());
+            /// JSONObject response = new JSONObject(readFeedResults.get_Response());
 
-
-            TimeZone tz = TimeZone.getTimeZone("KST");
-            Calendar cal = Calendar.getInstance(tz);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            sdf.setCalendar(cal);
-            cal.setTime(sdf.parse(response.getString("updated")));
-            Date date = cal.getTime();
-            contents += "[ " + date + " ]\n";
-
-            JSONArray datastream = response.getJSONArray("datastreams");
-            Log.d(TAG, datastream.length() + "");
-
-            for (int i = 0; i < datastream.length(); i++) {
-                contents += datastream.getJSONObject(i).get("id") + "\n>>";
-                contents += datastream.getJSONObject(i).get("current_value") + "\n\n";
+            try {
+                url = new URL(strings[0]);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e){
+
+            rcvData = rcvFromServer();
+            if (rcvData == null) return "none";
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return contents;
+        return rcvData;
     }
 
+    @Override
+    protected void onPostExecute(String s) {
+
+    }
+
+    private String rcvFromServer() {
+        try {
+            conn = (HttpURLConnection) url.openConnection();
+            int responseCode = conn.getResponseCode();
+
+            if(responseCode == HttpURLConnection.HTTP_OK){
+                InputStream inputStream = conn.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                StringBuilder result = new StringBuilder();
+                String line;
+
+                while((line = reader.readLine()) != null){
+                    result.append(line);
+                }
+
+                Log.w(TAG, result.toString());
+
+                return result.toString();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Exception";
+        } finally {
+            conn.disconnect();
+        }
+        return "none";
+    }
 }

@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".ReadXivelyService" android:enabled="true"/>
+        <service android:name=".ReadHttpService" android:enabled="true"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

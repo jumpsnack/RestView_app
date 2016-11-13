@@ -16,8 +16,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class ReadXivelyService extends Service {
-    final static private String TAG = "ReadXivelyService";
+public class ReadHttpService extends Service {
+    final static private String TAG = "ReadHttpService";
 
     private ArrayList<Messenger> clients = new ArrayList<>();
     private Messenger messenger = new Messenger(new IncomingHander());
@@ -33,7 +33,7 @@ public class ReadXivelyService extends Service {
                 case MyConstatns.REGIST_CLIENT:
                     clients.add(msg.replyTo);
                     isActivityAlive = true;
-                    getXivelyDatastream();
+                    getHttpDatastream();
                     break;
                 case MyConstatns.UNREGIST_CLIENT:
                     clients.remove(msg.replyTo);
@@ -43,7 +43,7 @@ public class ReadXivelyService extends Service {
         }
     }
 
-    private void getXivelyDatastream() {
+    private void getHttpDatastream() {
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -51,7 +51,7 @@ public class ReadXivelyService extends Service {
                 contents = "";
                 try {
 //                    contents = httpConnexion.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
-                    contents = httpConnexion.execute().get();
+                    contents = httpConnexion.execute("http://210.125.31.34:443").get();
                 } catch (Exception e) {
                     contents = "System down...:(";
                     Log.d(TAG, e.getMessage());

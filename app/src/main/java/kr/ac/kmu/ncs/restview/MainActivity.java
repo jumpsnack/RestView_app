@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import kr.ac.kmu.ncs.restview.DetailView.DetailViewFragment;
 
@@ -61,6 +62,7 @@ public class MainActivity extends FragmentActivity {
 //                    String contents = (String) msg.obj;
                     MyConstatns.contents = (String) msg.obj;
                     tvHello.setText(MyConstatns.contents);
+                    Toast.makeText(getApplicationContext(), MyConstatns.contents, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -89,7 +91,7 @@ public class MainActivity extends FragmentActivity {
 
         if (!isServiceBounded) {
             isServiceBounded = true;
-            bindService(new Intent(this, ReadXivelyService.class), serviceConnection, Context.BIND_AUTO_CREATE);
+            bindService(new Intent(this, ReadHttpService.class), serviceConnection, Context.BIND_AUTO_CREATE);
         }
     }
 
@@ -106,7 +108,7 @@ public class MainActivity extends FragmentActivity {
         fragmentTransaction.add(new OverViewFragment(), "OVERVIEW");
         fragmentTransaction.commit();
 
-//        readXivelyService = new ReadXivelyService();
+//        readXivelyService = new ReadHttpService();
 //        readXivelyService.setDaemon(true);
 //        readXivelyService.start();
     }
@@ -117,8 +119,8 @@ public class MainActivity extends FragmentActivity {
 
 
 /*
-    class ReadXivelyService extends Thread {
-        final static private String TAG = "ReadXivelyService";
+    class ReadHttpService extends Thread {
+        final static private String TAG = "ReadHttpService";
 
         private String contents;
 
