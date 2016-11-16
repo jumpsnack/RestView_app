@@ -13,11 +13,17 @@ import kr.ac.kmu.ncs.restview.R;
  * Created by NCS-KSW on 2016-11-06.
  */
 public class OverViewFragment extends Fragment {
+
+    OverViewController overViewController = null;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_over, container, false);
 
+        if(overViewController == null){
+            overViewController = new OverViewController(view);
+        }
         return  view;
     }
 }

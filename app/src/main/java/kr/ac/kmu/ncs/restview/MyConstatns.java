@@ -1,5 +1,7 @@
 package kr.ac.kmu.ncs.restview;
 
+import java.util.HashMap;
+
 /**
  * Created by Eddie Sangwon Kim on 2016-11-05.
  */
@@ -7,7 +9,7 @@ public class MyConstatns {
     /**
      * XIVELY CONSTANTS
      */
-    final static public short REQUEST_TIME_INTERVAL = 6000;
+    final static public short REQUEST_TIME_INTERVAL = 2000;
 
     /**
      * SEVICE CONSTANTS
@@ -19,7 +21,8 @@ public class MyConstatns {
      * DATASTREAM CONSTANTS
      */
     static public String contents = "";
-    final static public byte SUCESSFUL = 1;
+    static public HashMap<String, String> parameters = new HashMap<String ,String>();
+    final static public byte SUCCESSFUL = 1;
 
     static public int cnt = 0;
 

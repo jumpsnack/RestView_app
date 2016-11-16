@@ -19,8 +19,6 @@ public class DetailViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmnet_detail, container, false);
 
-//        detailViewController = DetailViewController.getInstance();
-//        detailViewController.setView(view);
         if(detailViewController == null){
             detailViewController = new DetailViewController(view);
         }

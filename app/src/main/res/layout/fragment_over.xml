@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="800px"
-        android:background="@color/colorPrimaryDark">
+        android:background="#00000000"
+        >
 
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/women"
+            android:id="@+id/img_women"
+            android:layout_alignTop="@+id/img_men"
+            android:layout_toRightOf="@+id/img_men"
+            android:layout_toEndOf="@+id/img_men"
+            android:layout_marginLeft="92dp"
+            android:layout_marginStart="92dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/men"
+            android:layout_marginLeft="75dp"
+            android:layout_marginStart="75dp"
+            android:id="@+id/img_men"
+            android:cropToPadding="false"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="50dp" />
     </RelativeLayout>
 
 </LinearLayout>

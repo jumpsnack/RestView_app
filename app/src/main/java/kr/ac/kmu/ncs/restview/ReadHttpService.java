@@ -58,7 +58,7 @@ public class ReadHttpService extends Service {
                 }
                 for (int i = 0; i < clients.size(); i++) {
                     try {
-                        clients.get(i).send(Message.obtain(null, MyConstatns.SUCESSFUL, contents));
+                        clients.get(i).send(Message.obtain(null, MyConstatns.SUCCESSFUL, contents));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }

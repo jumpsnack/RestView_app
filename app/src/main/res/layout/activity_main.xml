@@ -6,12 +6,6 @@
     android:background="@color/colorMainBackground"
     tools:context="kr.ac.kmu.ncs.restview.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:textSize="80px"
-        android:id="@+id/text_view" />
 
     <fragment
         android:layout_width="match_parent"

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import kr.ac.kmu.ncs.restview.DataParser;
 import kr.ac.kmu.ncs.restview.MyConstatns;
 import kr.ac.kmu.ncs.restview.R;
 
@@ -49,8 +50,8 @@ public class DetailViewController {
         listViewAdapter = new ListViewAdapter(view.getContext());
         listView.setAdapter(listViewAdapter);
 
-        for (int i = 0; i < 10; i++) {
-            listViewAdapter.addItem(0, "1", "1");
+        for (int i = 0; i < 6; i++) {
+            listViewAdapter.addItem("0", "Insufficient");
         }
     }
 
@@ -59,14 +60,32 @@ public class DetailViewController {
         new Thread(new Runnable() {
             @Override
             public void run() {
-               // final JsonController jsonController = new JsonController();
+                // final JsonController jsonController = new JsonController();
+                final DataParser parser = new DataParser();
                 while (true) {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-//                            if (MyConstatns.contents.length() > 0) {
-                               // listViewAdapter.changeItemValue(0, (int) (Math.random() * 2), "1", jsonController.getDataById("Humidity"));
-                        //    }
+                            if (MyConstatns.contents.length() > 0) {
+                                // 무조건 한 번 수행
+                                parser.parseQuery(MyConstatns.contents, MyConstatns.parameters);
+
+                                /**
+                                 * @dsec : 화장실 칸에 따라 정보 인출
+                                 * @arg1 : 화장실 칸
+                                 * @arg2 : PIR 값
+                                 * @arg3 : 휴지케이스 IR 값
+                                 * */
+                                for (int i = 0; i < listViewAdapter.getCount(); i++) {
+                                    if (i == 0) {
+                                        listViewAdapter.changeItemValue(i, "1", parser.getIR(i, MyConstatns.parameters));
+                                    } else if (i == 1) {
+                                        listViewAdapter.changeItemValue(i, "0", parser.getIR(i, MyConstatns.parameters));
+                                    } else {
+                                        listViewAdapter.changeItemValue(i, (int)(Math.random()*2) + "", (int)(Math.random()*2) + "");
+                                    }
+                                }
+                            }
                         }
                     });
                     try {
@@ -138,10 +157,23 @@ public class DetailViewController {
             return view;
         }
 
-        public void addItem(int state, String pir, String ir) {
+        public void addItem(String pir, String ir) {
             ListData addInfo = new ListData();
 
-            switch (state) {
+
+            addInfo.mPIR = pir;
+            addInfo.mIR = ir;
+
+           /* switch (state) {
+                case 0:
+                    addInfo.mPIRState = imgVacant;
+                    break;
+                default:
+                    addInfo.mPIRState = imgOccupoed;
+                    break;
+            }*/
+
+            switch (Integer.parseInt(pir)) {
                 case 0:
                     addInfo.mPIRState = imgVacant;
                     break;
@@ -150,17 +182,25 @@ public class DetailViewController {
                     break;
             }
 
-            addInfo.mPIR = pir;
-            addInfo.mIR = ir;
-
             listDatas.add(addInfo);
             dataChange();
         }
 
-        public void changeItemValue(int index, int state, String pir, String ir) {
+        public void changeItemValue(int index, String pir, String ir) {
             ListData listData = listDatas.get(index);
 
-            switch (state) {
+            listData.mPIR = pir;
+            listData.mIR = ir;
+           /* switch (state) {
+                case 0:
+                    addInfo.mPIRState = imgVacant;
+                    break;
+                default:
+                    addInfo.mPIRState = imgOccupoed;
+                    break;
+            }*/
+
+            switch (Integer.parseInt(pir)) {
                 case 0:
                     listData.mPIRState = imgVacant;
                     break;
@@ -168,8 +208,6 @@ public class DetailViewController {
                     listData.mPIRState = imgOccupoed;
                     break;
             }
-            listData.mPIR = pir;
-            listData.mIR = ir;
             dataChange();
         }
 
