@@ -68,7 +68,7 @@ public class DetailViewController {
                         public void run() {
                             if (MyConstatns.contents.length() > 0) {
                                 // 무조건 한 번 수행
-                                parser.parseQuery(MyConstatns.contents, MyConstatns.parameters);
+
 
                                 /**
                                  * @dsec : 화장실 칸에 따라 정보 인출
@@ -77,10 +77,13 @@ public class DetailViewController {
                                  * @arg3 : 휴지케이스 IR 값
                                  * */
                                 for (int i = 0; i < listViewAdapter.getCount(); i++) {
+
                                     if (i == 0) {
-                                        listViewAdapter.changeItemValue(i, "1", parser.getIR(i, MyConstatns.parameters));
+                                        parser.parseQuery(i+"", MyConstatns.parentParameter);
+                                        listViewAdapter.changeItemValue(i, "1", parser.getIR(i+"", MyConstatns.parentParameter));
                                     } else if (i == 1) {
-                                        listViewAdapter.changeItemValue(i, "0", parser.getIR(i, MyConstatns.parameters));
+                                        parser.parseQuery(i+"", MyConstatns.parentParameter);
+                                        listViewAdapter.changeItemValue(i, "0", parser.getIR(i+"", MyConstatns.parentParameter));
                                     } else {
                                         listViewAdapter.changeItemValue(i, (int)(Math.random()*2) + "", (int)(Math.random()*2) + "");
                                     }

@@ -21,9 +21,12 @@ public class MyConstatns {
      * DATASTREAM CONSTANTS
      */
     static public String contents = "";
-    static public HashMap<String, String> parameters = new HashMap<String ,String>();
+    //static public HashMap<String, String> parameters = new HashMap<String ,String>();
+    //static public Vector<HashMap> parameterVector = new Vector<>();
+    static public HashMap<String, HashMap> parentParameter = new HashMap<>();
     final static public byte SUCCESSFUL = 1;
 
     static public int cnt = 0;
 
+    String[] DATA_KEYS = {"PIR", "IR", "BTN"};
 }

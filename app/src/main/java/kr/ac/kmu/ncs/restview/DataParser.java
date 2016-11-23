@@ -2,6 +2,7 @@ package kr.ac.kmu.ncs.restview;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -9,9 +10,12 @@ import java.util.Map;
  */
 
 public class DataParser {
-    public void parseQuery(String query, Map parameters){
-        if(query != null){
-            String pairs[] = query.split("[&]");
+    public void parseQuery(String index, Map parameters){
+        if(index != null){
+            //String pairs[] = query.split("[&]");
+            String pairs[] = new JsonController().getDataById(index).split("[&]");
+            HashMap<String, String> childParameters = new HashMap<>();
+            if(pairs == null) return;
 
             for(String pair : pairs){
                 String param[] = pair.split("[=]");
@@ -36,18 +40,20 @@ public class DataParser {
                         }
                         return ;
                     }
-                    parameters.put(key, value);
+                    childParameters.put(key, value);
                 } catch (UnsupportedEncodingException e){
                     e.printStackTrace();
                 }
             }
+            parameters.put(index, childParameters);
         }
     }
 
-    public String getIR(int index, Map parameters){
+    public String getIR(String index, HashMap parameters){
         //index값으로 해당 칸 정보 가져오기
         if(!parameters.isEmpty()){
-            int state = Integer.parseInt(parameters.get("IR").toString());
+            HashMap<String, String> childParameters = (HashMap<String, String>) parameters.get(index);
+            int state = Integer.parseInt(childParameters.get("IR").toString());
 
             switch (state){
                 case 0:
