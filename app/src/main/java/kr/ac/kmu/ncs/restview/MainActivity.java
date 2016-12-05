@@ -13,7 +13,6 @@ import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import kr.ac.kmu.ncs.restview.DetailView.DetailViewFragment;
@@ -60,7 +59,7 @@ public class MainActivity extends FragmentActivity {
                 case MyConstatns.SUCCESSFUL:
 //                    String contents = (String) msg.obj;
                     MyConstatns.contents = (String) msg.obj;
-                    Toast.makeText(getApplicationContext(), MyConstatns.contents, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), MyConstatns.contents, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -104,6 +103,4 @@ public class MainActivity extends FragmentActivity {
         fragmentTransaction.add(new OverViewFragment(), "OVERVIEW");
         fragmentTransaction.commit();
     }
-
-
 }

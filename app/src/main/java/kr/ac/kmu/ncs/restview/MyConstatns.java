@@ -29,4 +29,7 @@ public class MyConstatns {
     static public int cnt = 0;
 
     String[] DATA_KEYS = {"PIR", "IR", "BTN"};
+
+    public static int temp = 0;
+    public static int hum = 0;
 }

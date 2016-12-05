@@ -5,11 +5,73 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Temperature"
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_temp"
+            android:layout_weight="4" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Humidity"
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_hum"
+            android:layout_weight="4" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="60dp"
+        android:gravity="bottom">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_alert"
+            android:id="@+id/img_suff_men"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_alert"
+            android:id="@+id/img_suff_women"
+            android:layout_weight="1" />
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="800px"
         android:background="#00000000"
-        >
+        android:layout_height="200dp">
 
 
         <ImageView
@@ -21,20 +83,20 @@
             android:layout_toRightOf="@+id/img_men"
             android:layout_toEndOf="@+id/img_men"
             android:layout_marginLeft="92dp"
-            android:layout_marginStart="92dp" />
+            android:layout_marginStart="132dp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/men"
-            android:layout_marginLeft="75dp"
-            android:layout_marginStart="75dp"
             android:id="@+id/img_men"
             android:cropToPadding="false"
-            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="57dp"
+            android:layout_marginStart="57dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="50dp" />
+            android:layout_marginTop="8dp" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -76,16 +76,15 @@ public class DetailViewController {
                                  * @arg2 : PIR 값
                                  * @arg3 : 휴지케이스 IR 값
                                  * */
-                                for (int i = 0; i < listViewAdapter.getCount(); i++) {
-
-                                    if (i == 0) {
+                                for (int i = 1; i <= listViewAdapter.getCount(); i++) {
+                                    if (i == 1) {
                                         parser.parseQuery(i+"", MyConstatns.parentParameter);
-                                        listViewAdapter.changeItemValue(i, "1", parser.getIR(i+"", MyConstatns.parentParameter));
-                                    } else if (i == 1) {
+                                        listViewAdapter.changeItemValue((i-1), parser.getPIR(i+"", MyConstatns.parentParameter), parser.getIR(i+"", MyConstatns.parentParameter));
+                                    } else if (i == 2) {
                                         parser.parseQuery(i+"", MyConstatns.parentParameter);
-                                        listViewAdapter.changeItemValue(i, "0", parser.getIR(i+"", MyConstatns.parentParameter));
+                                        listViewAdapter.changeItemValue((i-1), parser.getPIR(i+"", MyConstatns.parentParameter), parser.getIR(i+"", MyConstatns.parentParameter));
                                     } else {
-                                        listViewAdapter.changeItemValue(i, (int)(Math.random()*2) + "", (int)(Math.random()*2) + "");
+                                        listViewAdapter.changeItemValue((i-1),  parser.getPIR((int)(Math.random()*2)+1+"", MyConstatns.parentParameter), parser.getIR((int)(Math.random()*2)+1+"", MyConstatns.parentParameter));
                                     }
                                 }
                             }
@@ -154,7 +153,14 @@ public class DetailViewController {
             ListData mData = listDatas.get(i);
 
             holder.ivState.setImageDrawable(mData.mPIRState);
-            holder.tvLabel.setText(i + "번째 칸");
+            if(i<3){
+            holder.tvLabel.setText("남자 " + (i+1) + "번째 칸");
+
+            }else{
+                int index = (i+1)%3;
+                if(index == 0) index = 3;
+                holder.tvLabel.setText("여자 " + index + "번째 칸");
+            }
             holder.tvState.setText(mData.mIR);
 
             return view;
