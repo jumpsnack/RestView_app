@@ -21,6 +21,8 @@ public class DetailViewFragment extends Fragment {
 
         if(detailViewController == null){
             detailViewController = new DetailViewController(view);
+//            detailViewController = DetailViewController.getInstance();
+//            detailViewController.setView(view);
         }
 
         return view;

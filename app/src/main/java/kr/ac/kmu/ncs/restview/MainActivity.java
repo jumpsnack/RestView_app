@@ -59,7 +59,7 @@ public class MainActivity extends FragmentActivity {
                 case MyConstatns.SUCCESSFUL:
 //                    String contents = (String) msg.obj;
                     MyConstatns.contents = (String) msg.obj;
-                    Toast.makeText(getApplicationContext(), MyConstatns.contents, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), MyConstatns.contents, Toast.LENGTH_SHORT).show();
             }
         }
     }

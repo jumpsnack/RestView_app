@@ -95,30 +95,36 @@ public class DataParser {
         //index값으로 해당 칸 정보 가져오기
         if (!parameters.isEmpty()) {
             HashMap<String, String> childParameters = (HashMap<String, String>) parameters.get(index);
-            int state = Integer.parseInt(childParameters.get("IR").toString());
+            if (childParameters != null && !childParameters.isEmpty()) {
+                int state = Integer.parseInt(childParameters.get("IR").toString());
 
-            switch (state) {
-                case 0:
-                    return "Sufficient";
-                case 1:
-                    return "Unsufficient";
+                switch (state) {
+                    case 0:
+                        return "Sufficient";
+                    case 1:
+                        return "Insufficient";
+                }
             }
+
         }
         return "";
     }
 
-    public String getPIR(String index, HashMap parameters){
-        if(!parameters.isEmpty()){
+    public String getPIR(String index, HashMap parameters) {
+        if (!parameters.isEmpty()) {
             HashMap<String, String> childParameters = (HashMap<String, String>) parameters.get(index);
-            int state = Integer.parseInt(childParameters.get("PIR").toString());
+            if (childParameters != null && !childParameters.isEmpty()) {
+                int state = Integer.parseInt(childParameters.get("PIR").toString());
 
-            switch (state){
-                case 0:
-                    return "0";
+                switch (state) {
+                    case 0:
+                        return "0";
 
-                case 1:
-                    return "1";
+                    case 1:
+                        return "1";
+                }
             }
+
         }
         return "0";
     }
@@ -128,12 +134,53 @@ public class DataParser {
             //순환하며 데이터 수집
             Set<String> keys = parameters.keySet();
 
-            for(String key : keys){
+            for (String key : keys) {
                 HashMap<String, String> childParameters = (HashMap<String, String>) parameters.get(key);
-                MyConstatns.temp = (int)Double.parseDouble(childParameters.get("Temperature"));
-                MyConstatns.hum = (int)Double.parseDouble(childParameters.get("Humidity"));
-
+                MyConstatns.temp = (int) Double.parseDouble(childParameters.get("Temperature"));
+                MyConstatns.hum = (int) Double.parseDouble(childParameters.get("Humidity"));
             }
         }
+    }
+
+    public String getPaperRequest(String index, HashMap parameters){
+        if(!parameters.isEmpty()){
+            HashMap<String, String> childParameters = (HashMap<String, String>)parameters.get(index);
+            if(childParameters != null && !childParameters.isEmpty()){
+                int state = Integer.parseInt(childParameters.get("PAPER").toString());
+                switch (state){
+                    case 0:
+                        return "0";
+                    case 1:
+                        return "1";
+                }
+            }
+        }
+        return "0";
+    }
+
+    public String getRepaireRequest(String index, HashMap parameters){
+        if(!parameters.isEmpty()){
+            HashMap<String, String> childParameters = (HashMap<String, String>)parameters.get(index);
+            if(childParameters != null && !childParameters.isEmpty()){
+                int state = Integer.parseInt(childParameters.get("REPAIR").toString());
+                switch (state){
+                    case 0:
+                        return "0";
+                    case 1:
+                        return "1";
+                }
+            }
+        }
+        return "0";
+    }
+
+    public String getTimestamp(String index, HashMap parameters){
+        if(!parameters.isEmpty()){
+            HashMap<String, String> childParameters = (HashMap<String, String>)parameters.get(index);
+            if(childParameters != null && !childParameters.isEmpty()){
+                return childParameters.get("TIMESTAMP");
+            }
+        }
+        return "00:00:00";
     }
 }

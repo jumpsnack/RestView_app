@@ -17,6 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DetailView.DetailInfoActivity"/>
         <service android:name=".ReadHttpService" android:enabled="true"/>
     </application>
 

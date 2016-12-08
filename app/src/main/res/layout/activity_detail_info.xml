@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/colorPrimaryDark"
+    android:paddingTop="350px"
+   >
+
+    <TextView
+        android:text="몇번째칸"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20pt"
+        android:textStyle="bold"
+        android:background="#E8820C"
+        android:id="@+id/tv_title"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif" />
+
+    <TextView
+        android:paddingLeft="100px"
+        android:paddingRight="100px"
+        android:layout_marginTop="100px"
+        android:text="Toilet Usages"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="10pt"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10px"
+        >
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="8pt"
+            android:id="@+id/tv_pir"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textAlignment="center" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="6pt"
+            android:layout_gravity="center"
+            android:id="@+id/tv_pir_time"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px"
+        android:paddingLeft="100px"
+        android:paddingRight="100px"
+        >
+
+        <TextView
+            android:text="Remaining papers"
+            android:layout_width="wrap_content"
+            android:textSize="10pt"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/textView6"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="8pt"
+            android:textStyle="bold"
+            android:paddingTop="10px"
+            android:id="@+id/tv_ir"
+            android:layout_weight="2"
+            android:textAlignment="center" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="100px"
+        android:paddingRight="100px"
+        android:layout_marginTop="100px">
+
+        <Button
+            android:text="Needs a paper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_paper"
+            android:layout_margin="10px"
+            android:background="@color/colorMainBackground"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="Needs repair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10px"
+            android:background="@color/colorMainBackground"
+            android:id="@+id/btn_repair"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <Button
+        android:text="BACK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorMainBackground"
+        android:id="@+id/btn_back"
+        android:layout_margin="100px"/>
+</LinearLayout>

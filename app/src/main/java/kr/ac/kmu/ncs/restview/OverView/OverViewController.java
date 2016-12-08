@@ -77,7 +77,7 @@ public class OverViewController {
                         }
                     });
                     try {
-                        Thread.sleep(MyConstatns.REQUEST_TIME_INTERVAL / 2);
+                        Thread.sleep(MyConstatns.REQUEST_TIME_INTERVAL / 3);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -87,11 +87,11 @@ public class OverViewController {
     }
 
     void setTemperature() {
-        tvTemp.setText(MyConstatns.temp + "");
+        tvTemp.setText(MyConstatns.temp + " °c");
     }
 
     void setHumidity() {
-        tvHum.setText(MyConstatns.hum + "");
+        tvHum.setText(MyConstatns.hum + " %");
     }
 
     void collectPIRData(Map parameters) {
